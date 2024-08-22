@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  {% block titulo %}
+  <title>Coffee Shop</title>
+  {% endblock titulo %}
+
+</head>
+<body>
+  <div class="container mx-auto px-4">
+  <h1 class="font-bold underline" style="text-align: center;font-size:55px">Bienvenidos</h1>
+</div>
+  {% block subtitle %}
+
+  {% endblock subtitle %}
+
+  <div class="md:container md:mx-auto" >
+    {% block contenidoBase %}
+
+    {% endblock contenidoBase %}
+  </div>
+
+
+</body>
+</html>
