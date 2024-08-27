@@ -6,20 +6,83 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
 
-  {% block titulo %}
-  <title>Coffee Shop</title>
-  {% endblock titulo %}
-
 </head>
 <body>
-  <div class="container mx-auto px-4">
-  <h1 class="font-bold underline" style="text-align: center;font-size:55px">Bienvenidos</h1>
-</div>
-  {% block subtitle %}
 
-  {% endblock subtitle %}
+  <header class="bg-white" style="background-color: burlywood;">
+    <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8" style="margin-bottom: 25px;">
+      <div class="flex items-center justify-between">
 
-  <div class="md:container md:mx-auto" >
+        <!-- Saludo en el margen izquierdo -->
+        <div>
+          {% if user.is_authenticated %}
+            <h2 class="text-2xl font-bold text-gray-900 sm:text-3xl">Hello {{ user.username }}</h2>
+          {% endif %}
+        </div>
+
+        <!-- Título centrado -->
+        <div class="flex-grow text-center">
+          <h1 class="text-3xl font-bold text-gray-900">Coffee Shop</h1>
+        </div>
+
+        <!-- Botón de inicio de sesión o cerrar sesión en el margen derecho -->
+        <div>
+          {% if user.is_authenticated %}
+          <form action="#" method="post">
+            <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
+              <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+              Mi pedido
+              </span>
+              </button>
+          </form>
+            <form action="{% url 'logout' %}" method="post">
+              {% csrf_token %}
+              <button
+                class="inline-flex items-center justify-center gap-1.5 rounded border border-gray-200 bg-white px-5 py-3 text-gray-900 transition hover:text-gray-700 focus:outline-none focus:ring"
+                type="submit"
+                style="background-color: #e3342f;"
+              >
+                <span class="text-sm font-medium">Cerrar Sesión</span>
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="size-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+              </button>
+            </form>
+          {% else %}
+          <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
+            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+              Mi pedido
+            </span>
+            </button>
+            <a
+              class="group inline-block rounded bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] hover:text-white focus:outline-none focus:ring active:text-opacity-75"
+              href="{% url 'login' %}"
+            >
+              <span class="block rounded-sm bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent">
+                Iniciar Sesión
+              </span>
+            </a>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+
+  <div class="container mx-auto px-4" >
     {% block contenidoBase %}
 
     {% endblock contenidoBase %}
