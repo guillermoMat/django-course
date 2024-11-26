@@ -16,46 +16,45 @@
     {% block subtitle %}
     {% endblock subtitle %}
 
-
     {% block contenidoBase %}
 
-    <ul>
-      {%for product in products %}
-      <li>
-        <a href="#" class="relative block rounded-tr-3xl border border-gray-100">
-          <span
-            class="absolute -right-px -top-px rounded-bl-3xl rounded-tr-3xl bg-rose-600 px-6 py-4 font-medium uppercase tracking-widest text-white"
-          >$
-          {{product.price}}
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4"> <!-- Grid con 4 columnas en pantallas grandes -->
+      {% for product in products %}
+      <div class="border border-gray-100 rounded-tr-3xl overflow-hidden shadow-md"> <!-- Contenedor del producto -->
+        <form action="{% url 'addProduct' %}" method="post" class="relative">
+          {% csrf_token %}
+          <input type="hidden" name="product" value="{{product.id}}">
+
+          <!-- Etiqueta de precio -->
+          <span class="absolute -right-px -top-px rounded-bl-3xl rounded-tr-3xl bg-rose-600 px-6 py-4 font-medium uppercase tracking-widest text-white">
+            ${{ product.price }}
           </span>
 
+          <!-- Imagen del producto -->
           {% if product.photo %}
-          <img
-          src="{{ product.photo.url }}" alt="{{product.name}}"
-          class="h-80 w-full rounded-tr-3xl object-cover"
-        />
-        {% endif %}
+          <img src="{{ product.photo.url }}" alt="{{ product.name }}" class="h-56 w-full object-cover rounded-tr-3xl">
+          {% endif %}
 
+          <!-- Información del producto -->
           <div class="p-4 text-center">
-            <strong class="text-xl font-medium text-gray-900"> {{product.name}} </strong>
+            <strong class="text-xl font-medium text-gray-900"> {{ product.name }} </strong>
 
-            <p class="mt-2 text-pretty text-gray-700">
-              {{product.description}}
+            <p class="mt-2 text-sm text-gray-700">
+              {{ product.description }}
             </p>
 
-            <span
-              class="mt-4 block rounded-md border border-indigo-900 bg-indigo-900 px-5 py-3 text-sm font-medium uppercase tracking-widest text-white transition-colors hover:bg-white hover:text-indigo-900"
-            >
-              Add to shop
-            </span>
+            <!-- Botón para agregar al carrito -->
+            <button type="submit" class="mt-4 block w-full rounded-md border border-indigo-900 bg-indigo-900 px-5 py-3 text-sm font-medium uppercase tracking-widest text-white transition-colors hover:bg-white hover:text-indigo-900">
+              Agregar al carrito
+            </button>
           </div>
-        </a>
-
-      </li>
+        </form>
+      </div>
       {% endfor %}
-    </ul>
+    </div>
 
     {% endblock contenidoBase %}
+
 
     {% comment %}
 
