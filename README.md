@@ -17,8 +17,9 @@ Creación de un sistema para gestionar un "Coffee Shop", con funcionalidades bá
       python3 -m venv env
       source env/bin/activate
 
+
 ### Instala las dependencias necesarias
-´pip install -r requirements.txt´
+`pip install -r requirements.txt`
 
 ### Ejecuta el servidor de desarrollo:
-´python manage.py runserver´
+`python manage.py runserver`
